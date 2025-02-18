@@ -27,14 +27,19 @@ router.post('/signin', async (req, res) => {
 })
 
 router.post('/signup', async (req, res) => {
-    const { fullName, email, password } = req.body;
+    const { fullName, email, password, profileImageUrl } = req.body;
 
     await User.create({
         fullName,
         email,
-        password
+        password,
+        profileImageUrl: profileImageUrl ?? "/public.user-avatar.jpg"
     });
     return res.redirect("/user/signin")
+})
+
+router.get("/logout", (req, res) => {
+    res.clearCookie("token").redirect("/")
 })
 
 export default router

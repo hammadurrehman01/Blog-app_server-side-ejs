@@ -61,10 +61,6 @@ userSchema.static("matchPasswordAndGenerateToken", async function (email, passwo
             .update(password)
             .digest("hex")
 
-        console.log(hashedPassword);
-        console.log(userProvidedHash);
-
-
         if (hashedPassword !== userProvidedHash) {
             throw new Error("Incorrect password");
         }

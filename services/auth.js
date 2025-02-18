@@ -6,6 +6,7 @@ const createUserToken = (user) => {
 
     const payload = {
         _id: user._id,
+        fullName: user.fullName,
         email: user.email,
         profileImageUrl: user.profileImageUrl,
         role: user.role,
