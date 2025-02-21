@@ -2,7 +2,7 @@ import { connect } from "mongoose"
 
 export const connectDB = async () => {
     try {
-        const connection = await connect("mongodb://localhost:27017/blogging-app");
+        const connection = await connect(process.env.MONGO_URI);
         if (connection) {
             console.log("MONGO Connected!");
         } else {

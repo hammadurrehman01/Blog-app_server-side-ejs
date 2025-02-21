@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <%- include('./partials/head') %>
+  <title>Homepage</title>
+</head>
+
+<body>
+
+  <%- include('./partials/navbar') %>
+
+  <% if (locals.blog) { %>
+  <div class="container mt-4">
+    <div style="display: flex; align-items: center;">
+      <img src="/user-avatar.jpg" alt="user-image" width="80px">
+      <h2><%= blog.createdBy.fullName %></h2>
+    </div>
+
+    <h1 style="text-align: center; margin-top: 20px;"><%= blog.title %></h1>
+    <div style="display: flex; justify-content: center; margin-top: 20px;">
+      <img src="<%= blog.bannerImage %>" alt="<%= blog.title %>" width="900px" />
+    </div>
+    <p style=" margin-top: 20px;"><%= blog.description %></p>
+
+  </div>
+
+
+  <% } else { %>
+  <p>No blogs yet</p>
+  <% } %>
+
+
+  <h1>Comment (<%= comments.length   %>)</h1>
+
+  <% if (locals.user) { %>
+  <form action="/comment/<%- blog._id %>" method="post">
+    <div class="mb-3">
+      <input name="content" type="text" class="form-control">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Add</button>
+
+  </form>
+  <% } %>
+
+  <% comments.forEach(comment => { %>
+  <div style="display: flex; gap: 7px; margin-top: 20px;">
+    <img style="width: 40px; height: 40px;" src="<%= blog?.createBy?.profileImageUrl || "/user-avatar.jpg" %>" alt="user-image" width="40px" />
+    <div>
+      <h4 style="font-size: 15px;"><%= blog.createdBy.fullName %></h4>
+      <p><%= comment.content  %></p>
+    </div>
+  </div>
+  <% }) %>
+
+
+
+  <%- include('./partials/scripts') %>
+</body>
+
+</html>

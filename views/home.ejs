@@ -12,14 +12,14 @@
 
   <!-- <%= JSON.stringify(user) %> -->
 
-  <div class="mt-4">
+  <div class="mt-4  row row-cols-4 px-5 gap-3 pb-2">
     <% locals.blogs?.forEach(blog => { %>
-    <div class="card" style="width: 18rem;">
+    <div class="card " style="width: 18rem;">
       <img src=<%= blog.bannerImage %> class="card-img-top" alt="...">
       <div class="card-body">
         <h5 class="card-title"><%= blog.title %></h5>
-        <p class="card-text"><%= blog.description %></p>
-        <a href="/blog/<%= blog._id %>" class="btn btn-primary">Go somewhere</a>
+        <p class="card-text"><%= blog.description.slice(0, 100) %>...</p>
+        <a href="/blog/<%= blog._id %>" class="btn btn-primary">Read Blog</a>
       </div>
     </div>
     <% }) %>

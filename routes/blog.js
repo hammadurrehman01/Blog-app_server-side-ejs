@@ -2,6 +2,7 @@ import { Router } from "express";
 import path from "path";
 import multer from "multer";
 import { Blog } from "../models/blog.js";
+import { Comment } from "../models/comment.js";
 
 const router = Router();
 
@@ -21,7 +22,17 @@ router.get('/add-new', (req, res) => {
     return res.render("addBlog")
 })
 
+router.get('/:id', async (req, res) => {
+    const blogId = req.params.id
+    const blog = await Blog.findById(blogId).populate("createdBy");
+    const comments = await Comment.find({ blogId: blogId }).populate("createdBy");
 
+    return res.render("blog", {
+        user: req.user,
+        blog,
+        comments
+    })
+})
 
 router.post('/', upload.single("bannerImage"), async (req, res) => {
     const { title, description, bannerImage, } = req.body;
@@ -33,7 +44,5 @@ router.post('/', upload.single("bannerImage"), async (req, res) => {
     })
     res.redirect("/")
 })
-
-
 
 export default router
